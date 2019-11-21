@@ -1,0 +1,47 @@
+FROM illumination27/ngs-base:latest
+
+RUN apt-get update --fix-missing && \
+    apt-get install -y unzip tmux build-essential && \
+    apt-get -qq -y autoremove && \
+    apt-get autoclean 
+
+RUN conda update -n base conda
+
+RUN conda install \
+        samtools=1.2* \
+        bwa \
+        Mummer \
+        bedtools \
+        VarScan \
+        bcftools \
+        snpeff \
+        -c bioconda -c conda-forge && \
+        conda clean --all --yes
+
+RUN mkdir -p /workspace/bin
+
+WORKDIR /workspace/bin
+
+# download SolSNP
+RUN wget -O /workspace/bin/SolSNP.zip https://sourceforge.net/projects/solsnp/files/SolSNP-1.11/SolSNP-1.11.zip && \
+    unzip /workspace/bin/SolSNP.zip -d /workspace/bin && \
+    rm -f /workspace/bin/SolSNP.zip
+
+# download VarScan
+RUN wget -O /workspace/bin/VarScan.jar https://downloads.sourceforge.net/project/varscan/VarScan.v2.3.9.jar
+
+# download gatk3 (because gatk4 has different API to use nasp)
+RUN curl -L --output /workspace/bin/gatk3.tar.bz2 "https://software.broadinstitute.org/gatk/download/auth?package=GATK-archive&version=3.8-1-0-gf15c1c3ef" && \
+    tar jxvf /workspace/bin/gatk3.tar.bz2 && \
+    rm -f /workspace/bin/gatk3.tar.bz2 && \
+    mv /workspace/bin/GenomeAnalysisTK-3.8-1-0-gf15c1c3ef /workspace/bin/GATK3
+
+# PATH TO files for nasp
+ENV PATH="${PATH}:/workspace/bin"
+
+ADD ./exec_qc.py /workspace/bin
+
+WORKDIR /local_volume
+
+
+
