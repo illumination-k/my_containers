@@ -1,0 +1,16 @@
+version: '3'
+
+services:
+  analysis_env:
+    image: illumination27/analysis-env:v0.2
+
+    container_name: analysis_env
+
+    user: root
+
+    privileged: true
+    
+    volumes:
+      - "./workspace:/home/jovyan/work"
+
+    command: sh -c "sleep infinity"
