@@ -8,11 +8,12 @@ RUN apt-get update --fix-missing && \
 RUN conda update -n base conda
 
 RUN conda install \
-        samtools=1.2* \
+        samtools \
         bwa \
-        bowtie2 \
         Mummer \
+        kwip \
         bedtools \
+        vcftools \
         VarScan \
         bcftools \
         snpeff \
@@ -28,8 +29,13 @@ RUN wget -O /workspace/bin/SolSNP.zip https://sourceforge.net/projects/solsnp/fi
     unzip /workspace/bin/SolSNP.zip -d /workspace/bin && \
     rm -f /workspace/bin/SolSNP.zip
 
+RUN wget -O /workspace/bin/gatk4.zip https://github.com/broadinstitute/gatk/releases/download/4.1.4.0/gatk-4.1.4.0.zip && \
+    unzip /workspace/bin/gatk4.zip -d /workspace/bin && \
+    rm -f /workspace/bin/gatk4.zip
+
 # PATH TO files for nasp
 ENV PATH="${PATH}:/workspace/bin"
+ENV PATH="${PATH}:/workspace/bin/gatk-4.1.4.0"
 
 ADD ./exec_qc.py /workspace/bin
 
