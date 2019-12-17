@@ -6,6 +6,7 @@
 
 **dockerのインストールが必要です**  
 インストール方法に関してはこちらを参考にしてください。
+Windowsの場合はHyper-Vという機能が必要なので、Pro以上のエディションである必要があります。
 
 - mac: https://qiita.com/kurkuru/items/127fa99ef5b2f0288b81
 - windows: https://ops.jig-saw.com/techblog/docker-for-windows-install/
@@ -50,5 +51,4 @@ python salmon_pipeline.py -h
 2. fastp: an ultra-fast all-in-one FASTQ preprocessor Shifu Chen, Yanqing Zhou, Yaru Chen, Jia Gu Bioinformatics, Volume 34, Issue 17, 1 September 2018, Pages i884–i890,
 3. Patro R, Duggal G, Love MI, Irizarry RA, Kingsford C. Salmon provides fast and bias-aware quantification of transcript expression. Nat Methods. 2017;14(4):417-419.
 4. Soneson C, Love MI, Robinson MD. Differential analyses for RNA-seq: transcript-level estimates improve gene-level inferences. F1000Research. 2015, 7(3):562-78.
-5. MultiQC: Summarize analysis results for multiple tools and samples in a single report
-Philip Ewels, Måns Magnusson, Sverker Lundin and Max Käller Bioinformatics (2016)
+5. MultiQC: Summarize analysis results for multiple tools and samples in a single report Philip Ewels, Måns Magnusson, Sverker Lundin and Max Käller Bioinformatics (2016)

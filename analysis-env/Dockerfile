@@ -11,10 +11,8 @@ RUN apt-get update --fix-missing && \
 
 RUN conda update -n base conda && \ 
     conda install \
-        django==2.* \
         numpy \
         pandas \
-        gunicorn \
         scipy \
         scikit-learn \
         biopython \
@@ -27,7 +25,7 @@ RUN conda install \
     pybedtools \
     -c bioconda
 
-RUN Rscript -e "install.packages(c('BiocManager', 'tidyverse', 'devtools', 'usethis', 'bootnet'), repos='http://cran.us.r-project.org')" 
+RUN Rscript -e "install.packages(c('BiocManager', 'tidyverse', 'devtools', 'usethis', 'qgraph', 'bootnet'), repos='http://cran.us.r-project.org')" 
 
 RUN Rscript -e "BiocManager::install(c('edgeR', 'DEseq2', 'WCGNA', 'goseq'))"
 
@@ -35,5 +33,5 @@ USER jovyan
 
 RUN pip install -U pip && \
     pip install cython && \
-    pip install pyper django-pandas matplotlib seaborn umap-learn skggm optuna statsmodels upsetplot
+    pip install pyper matplotlib seaborn umap-learn skggm optuna statsmodels upsetplot networkx
 
