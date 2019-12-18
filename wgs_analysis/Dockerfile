@@ -1,7 +1,7 @@
 FROM illumination27/ngs-base:latest
 
 RUN apt-get update --fix-missing && \
-    apt-get install -y unzip tmux && \
+    apt-get install -y unzip tmux build-essential autoconf autogen make zlib1g-dev && \
     apt-get -qq -y autoremove && \
     apt-get autoclean 
 
@@ -13,7 +13,6 @@ RUN conda install \
         Mummer \
         kwip \
         bedtools \
-        vcftools \
         VarScan \
         bcftools \
         snpeff \
@@ -24,16 +23,25 @@ RUN mkdir -p /workspace/bin
 
 WORKDIR /workspace/bin
 
-# download SolSNP
-RUN wget -O /workspace/bin/SolSNP.zip https://sourceforge.net/projects/solsnp/files/SolSNP-1.11/SolSNP-1.11.zip && \
-    unzip /workspace/bin/SolSNP.zip -d /workspace/bin && \
-    rm -f /workspace/bin/SolSNP.zip
+# download and install SolSNP # server error 191127
+# RUN wget -O /workspace/bin/SolSNP.zip https://sourceforge.net/projects/solsnp/files/SolSNP-1.11/SolSNP-1.11.zip && \
+#     unzip /workspace/bin/SolSNP.zip -d /workspace/bin && \
+#     rm -f /workspace/bin/SolSNP.zip
 
+# download and install GATK4
 RUN wget -O /workspace/bin/gatk4.zip https://github.com/broadinstitute/gatk/releases/download/4.1.4.0/gatk-4.1.4.0.zip && \
     unzip /workspace/bin/gatk4.zip -d /workspace/bin && \
     rm -f /workspace/bin/gatk4.zip
 
-# PATH TO files for nasp
+# download and install vcftools
+RUN git clone https://github.com/vcftools/vcftools.git
+WORKDIR /workspace/bin/vcftools 
+
+RUN ./autogen.sh && \
+    ./configure make && \
+    make install
+
+# PATH TO files for tools
 ENV PATH="${PATH}:/workspace/bin"
 ENV PATH="${PATH}:/workspace/bin/gatk-4.1.4.0"
 

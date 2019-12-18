@@ -1,0 +1,14 @@
+django
+biopython
+plotly
+dash
+dash-bio
+scikit-learn
+scipy
+pyper
+numpy
+pandas
+networkx
+django-plotly-dash
+django-pandas
+django-storages

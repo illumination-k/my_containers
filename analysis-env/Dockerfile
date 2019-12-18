@@ -27,13 +27,13 @@ RUN conda install \
     pybedtools \
     -c bioconda
 
-RUN Rscript -e "install.packages(c('BiocManager', 'tidyverse', 'devtools', 'usethis', 'bootnet'), repos='http://cran.us.r-project.org')" 
+RUN Rscript -e "install.packages(c('BiocManager', 'tidyverse', 'devtools', 'usethis', 'qgraph', 'bootnet'), repos='http://cran.us.r-project.org')" 
 
-RUN Rscript -e "BiocManager::install(c('edgeR', 'DEseq2', 'WCGNA', 'goseq'))"
+RUN Rscript -e "BiocManager::install(c('edgeR', 'DEseq2', 'WGCNA', 'goseq', 'topGO', 'ALL', 'hgu95av2.db', 'Rgraphviz', 'genefilter'))"
 
 USER jovyan
 
 RUN pip install -U pip && \
     pip install cython && \
-    pip install pyper django-pandas matplotlib seaborn umap-learn skggm optuna statsmodels upsetplot
+    pip install pyper django-pandas matplotlib seaborn umap-learn skggm optuna statsmodels upsetplot networkx
 
