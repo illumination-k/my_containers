@@ -18,3 +18,5 @@ RUN conda install r-base
 RUN Rscript -e "install.packages(c('tidyverse', 'BiocManager'), repos='http://cran.us.r-project.org')" 
 RUN Rscript -e "BiocManager::install(c('edgeR', 'DEseq2', 'WGCNA', 'goseq'))"
 
+RUN rm -rf /var/lib/apt/lists/*
+
