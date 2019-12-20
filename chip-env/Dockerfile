@@ -8,7 +8,6 @@ RUN apt-get update --fix-missing && \
 RUN conda install \
     bedtools \
     bowtie2 \
-    homer \
     deeptools \
     -c bioconda -c conda-forge
 

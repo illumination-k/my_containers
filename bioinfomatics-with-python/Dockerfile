@@ -39,6 +39,5 @@ RUN git clone https://github.com/PacktPublishing/Bioinformatics-with-Python-Cook
 WORKDIR /Bioinformatics-with-Python-Cookbook-Second-Edition
 
 RUN echo setterm -foreground magenta >> /etc/bash.bashrc
-ADD . /home
 
 CMD zsh
