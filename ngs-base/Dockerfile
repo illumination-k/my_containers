@@ -6,7 +6,7 @@ RUN apt-get update --fix-missing && \
     apt-get install -y \ 
         less fish git curl wget \
         libxml2-dev libxslt1-dev build-essential \
-        locales libxml-libxml-perl && \
+        locales && \
     apt-get -qq -y autoremove && \
     apt-get autoclean && \
     rm -rf /var/lib/apt/lists/* /var/log/dpkg.log 
@@ -23,8 +23,12 @@ RUN conda update -n base conda && \
         picard && \
     conda clean --all --yes
 
+
 RUN mkdir -p /workspace /local_volume 
 WORKDIR /workspace
+
+RUN curl -o setup.sh https://ftp-trace.ncbi.nlm.nih.gov/sra/sdk/2.10.0/setup-apt.sh && \
+    sh setup.sh
 
 #  言語設定
 RUN echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen && \
@@ -34,10 +38,6 @@ ENV LANG=en_US.UTF-8
 ENV LC_CTYPE=en_US.UTF-8
 ENV LANGUAGE=en_US.UTF-8
 ENV LC_ALL=en_US.UTF-8
-
-RUN wget -O /workspace/sratoolkit.tar.gz http://ftp-trace.ncbi.nlm.nih.gov/sra/sdk/2.10.0/sratoolkit.2.10.0-ubuntu64.tar.gz && \
-    tar zxvf /workspace/sratoolkit.tar.gz && \
-    rm /workspace/sratoolkit.tar.gz
 
 ENV PATH="${PATH}:/workspace/sratoolkit.2.10.0-ubuntu64/bin"
 

@@ -2,7 +2,7 @@ version: '3'
 
 services:
   analysis_env:
-    image: illumination27/analysis-env:v0.4
+    image: illumination27/analysis-env:v0.5
 
     container_name: analysis_env
 
