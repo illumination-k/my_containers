@@ -43,6 +43,6 @@ ENV LC_ALL=en_US.UTF-8
 
 ENV PATH="${PATH}:/usr/local/ncbi/sra-tools/bin"
 
-ADD ./sra_downloader.py /workspace
+ADD ./ /workspace
 
 CMD ["fish"]

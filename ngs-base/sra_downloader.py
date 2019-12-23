@@ -1,3 +1,6 @@
+import os
+import io
+import requests
 import argparse
 import pandas as pd
 import subprocess
@@ -25,25 +28,50 @@ def fasterq_gzip(fasterq, gzip):
     subprocess.run(fasterq)
     subprocess.run(gzip)
 
+def add_dl_info(idx, df, args):
+    if args.use_dl_info:
+        df.loc[idx]["dl_info"] = ""
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--input", "-i", type=str, default=None, required=True)
+    parser.add_argument("--output", "-o", type=str, default="/local_volume")
+    parser.add_argument("--thread", "-t", type=str, default="6")
+    parser.add_argument("--initialize", action="store_true")
+    parser.add_argument("--use_dl_info", action="store_true")
+    parser.add_argument("--use_url", type=str, default=None)
     args = parser.parse_args()
 
-    df = pd.read_csv(args.input, index_col = 0)
+    if args.use_url is None:
+        df = pd.read_csv(args.input, index_col = 0)
+    else:
+        URL = args.input
+        if "open" in URL:
+            URL = URL.replace("open", "uc")
+        r = requests.get(URL)
+        df = pd.read_csv(io.BytesIO(r.content))
+
+    if args.initialize:
+        df["dl_info"] = [[]*len(df.index)]
 
     for idx in df.index:
         print("===", idx, "downloading...", "===")
         if df.loc[idx]["LibraryLayout"] == "SINGLE":
-            fasterq = ["fasterq-dump", idx, "-p"]
-            gzip = ["gzip", idx+".fastq"]
+            fastq = os.path.join(args.output, idx+".fastq")
+            fasterq = ["fasterq-dump", idx, "-p", "-e", args.thread, "-O", args.output]
+            gzip = ["gzip", fastq]
             fasterq_gzip(fasterq, gzip)
         elif df.loc[idx]["LibraryLayout"] == "PAIRED":
-            fasterq = ["fasterq-dump", idx, "-p", "-S"]
-            gzip = ["gzip", idx+"_1.fastq", idx+"_2.fastq"]
+            fastq_1 = os.path.join(args.output, idx+"_1.fastq")
+            fastq_2 = os.path.join(args.output, idx+"_2.fastq")
+            fasterq = ["fasterq-dump", idx, "-p", "-S", "-e", args.thread, "-O", args.output]
+            gzip = ["gzip", fastq_1, fastq_2]
             fasterq_gzip(fasterq, gzip)
         else:
             raise ValueError("Invalid LibraryLayout")
+
+    df.to_csv("args.input")
 
 if __name__ == "__main__":
     main()

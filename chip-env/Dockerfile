@@ -9,4 +9,5 @@ RUN conda install \
     bowtie2 \
     -c bioconda -c conda-forge
 
+ADD ./pipeline.sh /workspace
 WORKDIR /local_volume
