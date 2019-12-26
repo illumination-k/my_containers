@@ -23,7 +23,6 @@ RUN conda update -n base conda && \
         statsmodels \
         matplotlib \
         seaborn \
-        networkx \
         numba \
         -c conda-forge -c anaconda -c numba
 
@@ -43,5 +42,5 @@ USER jovyan
 
 RUN pip install -U pip && \
     pip install cython && \
-    pip install pyper skggm optuna tqdm
+    pip install pyper skggm optuna tqdm networkx
 
