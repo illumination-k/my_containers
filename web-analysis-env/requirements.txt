@@ -2,6 +2,7 @@ django
 django-plotly-dash 
 django-pandas 
 numpy 
+numba
 pandas 
 scipy 
 scikit-learn 
@@ -9,11 +10,8 @@ biopython
 plotly 
 dash
 dash-bio
-psycopg2 
 pyper 
 umap-learn 
-skggm 
-optuna 
 statsmodels 
 upsetplot 
 networkx

@@ -17,7 +17,15 @@ RUN conda update -n base conda && \
         scikit-learn \
         biopython \
         plotly \
-        psycopg2 
+        psycopg2 \
+        umap-learn \
+        upsetplot \
+        statsmodels \
+        matplotlib \
+        seaborn \
+        networkx \
+        numba \
+        -c conda-forge -c anaconda -c numba
 
 RUN conda install \
     bioconductor-biocinstaller \
@@ -27,7 +35,7 @@ RUN conda install \
     homer \
     -c bioconda
 
-RUN Rscript -e "install.packages(c('BiocManager', 'tidyverse', 'devtools', 'usethis', 'qgraph', 'bootnet', 'ASmap'), repos='http://cran.us.r-project.org')" 
+RUN Rscript -e "install.packages(c('BiocManager', 'tidyverse', 'devtools', 'usethis', 'qgraph', 'bootnet', 'ASmap', 'onemap', 'vcfR'), repos='http://cran.us.r-project.org')" 
 
 RUN Rscript -e "BiocManager::install(c('edgeR', 'DEseq2', 'WGCNA', 'goseq', 'topGO', 'ALL', 'hgu95av2.db', 'Rgraphviz', 'genefilter'))"
 
@@ -35,5 +43,5 @@ USER jovyan
 
 RUN pip install -U pip && \
     pip install cython && \
-    pip install pyper matplotlib seaborn umap-learn skggm optuna statsmodels upsetplot networkx
+    pip install pyper skggm optuna tqdm
 

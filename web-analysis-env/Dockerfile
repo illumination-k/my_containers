@@ -17,17 +17,19 @@ ENV LC_CTYPE=ja_JP.UTF-8
 ENV LANGUAGE=ja_JP.UTF-8
 ENV LC_ALL=ja_JP.UTF-8
 
-RUN conda install r-base \
-    -c conda-forge -c bioconda 
+RUN conda install -c conda-forge \
+    numpy \
+    scipy \
+    pandas \
+    plotly \
+    dash \
+    dash-bio \
+    networkx \
+    django \
+    psycopg2 \
+    r-base
 
-RUN Rscript -e "install.packages(c('BiocManager', 'tidyverse', 'devtools', 'usethis', 'qgraph', 'bootnet', 'ASmap'), repos='http://cran.us.r-project.org')" 
-RUN Rscript -e "BiocManager::install(c('edgeR', 'DEseq2', 'WGCNA', 'goseq', 'topGO', 'ALL', 'hgu95av2.db', 'Rgraphviz', 'genefilter'))"
+RUN Rscript -e "install.packages(c('BiocManager', 'tidyverse'), repos='http://cran.us.r-project.org')" 
+RUN Rscript -e "BiocManager::install(c('edgeR', 'DEseq2', 'WGCNA', 'goseq', 'topGO', 'ALL', 'Rgraphviz', 'genefilter'))"
 
-RUN mkdir -p /workspace
-WORKDIR /workspace
-
-ADD ./requirements.txt /workspace
-
-RUN pip install -U pip && \
-    pip install cython && \
-    pip install -r requirements.txt 
+RUN pip install django-plotly-dash django-pandas django-crispy-forms pyper
