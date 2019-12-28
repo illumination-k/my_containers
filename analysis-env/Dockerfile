@@ -24,23 +24,33 @@ RUN conda update -n base conda && \
         matplotlib \
         seaborn \
         numba \
+        networkx \
+        tqdm \
         -c conda-forge -c anaconda -c numba
 
 RUN conda install \
-    bioconductor-biocinstaller \
+    scanpy \
+    bioconductor-edger \
+    bioconductor-deseq2 \
+    bioconductor-goseq \
+    bioconductor-topgo \
+    bioconductor-rgraphviz \
+    bioconductor-genefilter \
+    r-vcfr \
+    r-wgcna \
+    r-tidyverse \
+    r-devtools \
     deeptools \
     pysam \
     pybedtools \
     homer \
-    -c bioconda
+    -c bioconda -c r -c conda-forge
 
-RUN Rscript -e "install.packages(c('BiocManager', 'tidyverse', 'devtools', 'usethis', 'qgraph', 'bootnet', 'ASmap', 'onemap', 'vcfR'), repos='http://cran.us.r-project.org')" 
-
-RUN Rscript -e "BiocManager::install(c('edgeR', 'DEseq2', 'WGCNA', 'goseq', 'topGO', 'ALL', 'hgu95av2.db', 'Rgraphviz', 'genefilter'))"
+RUN Rscript -e "install.packages(c('qgraph', 'bootnet', 'ASmap', 'onemap'), repos='http://cran.us.r-project.org')" 
 
 USER jovyan
 
 RUN pip install -U pip && \
     pip install cython && \
-    pip install pyper skggm optuna tqdm networkx
+    pip install pyper skggm optuna 
 
