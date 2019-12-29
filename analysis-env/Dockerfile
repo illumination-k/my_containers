@@ -30,6 +30,8 @@ RUN conda update -n base conda && \
 
 RUN conda install \
     scanpy \
+    leidenalg \
+    ipywidgets \
     bioconductor-edger \
     bioconductor-deseq2 \
     bioconductor-goseq \
@@ -43,6 +45,7 @@ RUN conda install \
     deeptools \
     pysam \
     pybedtools \
+    pypairs \
     homer \
     -c bioconda -c r -c conda-forge
 
@@ -51,6 +54,6 @@ RUN Rscript -e "install.packages(c('qgraph', 'bootnet', 'ASmap', 'onemap'), repo
 USER jovyan
 
 RUN pip install -U pip && \
-    pip install cython && \
-    pip install pyper skggm optuna 
+    pip install cython h5py click && \
+    pip install pyper skggm optuna velocyto
 

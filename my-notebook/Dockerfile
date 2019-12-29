@@ -4,7 +4,8 @@ USER root
 
 RUN jupyter labextension install @lckr/jupyterlab_variableinspector && \
     jupyter labextension install @jupyterlab/git && \
-    jupyter labextension install @jupyterlab/toc 
+    jupyter labextension install @jupyterlab/toc && \
+    jupyter labextension install @jupyter-widgets/jupyterlab-manager
 
 
 
