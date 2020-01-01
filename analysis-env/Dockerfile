@@ -51,9 +51,19 @@ RUN conda install \
 
 RUN Rscript -e "install.packages(c('qgraph', 'bootnet', 'ASmap', 'onemap'), repos='http://cran.us.r-project.org')" 
 
-USER jovyan
-
 RUN pip install -U pip && \
-    pip install cython h5py click && \
-    pip install pyper skggm optuna velocyto
+    pip install cython h5py click cmake && \
+    pip install pyper \ 
+                skggm \
+                optuna \
+                velocyto \
+                MulticoreTSNE \
+                phate \
+                fa2 \
+                magic-impute \
+                bbknn \
+                rpy2 && \
+    pip install git+https://github.com/jacoblevine/phenograph.git && \
+    pip install git+https://github.com/dpeerlab/Palantir.git
+
 
