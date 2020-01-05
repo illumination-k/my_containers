@@ -64,6 +64,7 @@ RUN pip install -U pip && \
                 bbknn \
                 rpy2 && \
     pip install git+https://github.com/jacoblevine/phenograph.git && \
-    pip install git+https://github.com/dpeerlab/Palantir.git
+    pip install git+https://github.com/dpeerlab/Palantir.git && \
+    pip install git+https://github.com/theislab/scvelo
 
 
