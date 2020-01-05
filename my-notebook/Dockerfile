@@ -2,15 +2,16 @@ FROM illumination27/analysis-env:latest
 
 USER root 
 
-RUN jupyter labextension install @lckr/jupyterlab_variableinspector && \
-    jupyter labextension install @jupyterlab/git && \
-    jupyter labextension install @jupyterlab/toc && \
-    jupyter labextension install @jupyter-widgets/jupyterlab-manager
-
-
-
-RUN pip install jupyterlab-git
-RUN jupyter serverextension enable --py jupyterlab_git
+RUN jupyter labextension install @lckr/jupyterlab_variableinspector \
+                                 @jupyterlab/git \
+                                 @jupyterlab/toc \
+                                 @jupyter-widgets/jupyterlab-manager \
+                                 jupyterlab-plotly \
+                                 plotlywidget \
+                                 --no-build && \
+    pip install jupyterlab-git && \
+    jupyter serverextension enable --py jupyterlab_git && \
+    jupyter lab build
 
 # black background
 RUN mkdir -p /home/jovyan/.jupyter/lab/user-settings/@jupyterlab/apputils-extension
