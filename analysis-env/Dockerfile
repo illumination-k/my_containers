@@ -62,9 +62,12 @@ RUN pip install -U pip && \
                 fa2 \
                 magic-impute \
                 bbknn \
+                scvelo \
+                python-louvain \
                 rpy2 && \
     pip install git+https://github.com/jacoblevine/phenograph.git && \
     pip install git+https://github.com/dpeerlab/Palantir.git && \
-    pip install git+https://github.com/theislab/scvelo
+    pip install git+https://github.com/theislab/scvelo && \
+    pip install git+https://github.com/chriscainx/mnnpy.git
 
 
