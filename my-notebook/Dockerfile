@@ -13,6 +13,8 @@ RUN jupyter labextension install @lckr/jupyterlab_variableinspector \
     jupyter serverextension enable --py jupyterlab_git && \
     jupyter lab build
 
+RUN pip install jupyterthemes
+
 # black background
 RUN mkdir -p /home/jovyan/.jupyter/lab/user-settings/@jupyterlab/apputils-extension
 RUN echo '{"theme":"JupyterLab Dark"}' > \
