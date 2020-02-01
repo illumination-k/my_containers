@@ -7,6 +7,8 @@ RUN apt-get update --fix-missing && \
 
 RUN conda install \
     bowtie2 \
+    samtools \
+    deeptools \
     -c bioconda -c conda-forge
 
 ADD ./pipeline.sh /workspace

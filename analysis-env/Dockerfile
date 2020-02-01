@@ -23,33 +23,37 @@ RUN conda update -n base conda && \
         statsmodels \
         matplotlib \
         seaborn \
-        numba \
         networkx \
         tqdm \
-        -c conda-forge -c anaconda -c numba
+        scanpy \
+        leidenalg \
+        ipywidgets \
+        bioconductor-annotationforge \
+        bioconductor-sva \
+        bioconductor-edger \
+        bioconductor-deseq2 \
+        bioconductor-goseq \
+        bioconductor-topgo \
+        bioconductor-rgraphviz \
+        bioconductor-genefilter \
+        bioconductor-annotationdbi \
+        bioconductor-clusterprofiler \
+        bioconductor-do.db \
+        bioconductor-kegg.db \
+        bioconductor-dose \
+        r-base \
+        r-vcfr \
+        r-wgcna \
+        r-tidyverse \
+        r-devtools \
+        deeptools \
+        pysam \
+        pybedtools \
+        pypairs \
+        homer \
+    -c bioconda -c r -c conda-forge -c anaconda
 
-RUN conda install \
-    scanpy \
-    leidenalg \
-    ipywidgets \
-    bioconductor-edger \
-    bioconductor-deseq2 \
-    bioconductor-goseq \
-    bioconductor-topgo \
-    bioconductor-rgraphviz \
-    bioconductor-genefilter \
-    r-vcfr \
-    r-wgcna \
-    r-tidyverse \
-    r-devtools \
-    deeptools \
-    pysam \
-    pybedtools \
-    pypairs \
-    homer \
-    -c bioconda -c r -c conda-forge
-
-RUN Rscript -e "install.packages(c('qgraph', 'bootnet', 'ASmap', 'onemap'), repos='http://cran.us.r-project.org')" 
+# RUN Rscript -e "install.packages(c('qgraph', 'bootnet', 'ASmap', 'onemap'), repos='http://cran.us.r-project.org')" 
 
 RUN pip install -U pip && \
     pip install cython h5py click cmake && \
@@ -63,11 +67,9 @@ RUN pip install -U pip && \
                 magic-impute \
                 bbknn \
                 scvelo \
-                python-louvain \
+                pyscenic \
+                bctpy \
                 rpy2 && \
     pip install git+https://github.com/jacoblevine/phenograph.git && \
-    pip install git+https://github.com/dpeerlab/Palantir.git && \
-    pip install git+https://github.com/theislab/scvelo && \
     pip install git+https://github.com/chriscainx/mnnpy.git
-
 
