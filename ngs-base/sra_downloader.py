@@ -71,7 +71,5 @@ def main():
         else:
             raise ValueError("Invalid LibraryLayout")
 
-    df.to_csv("args.input")
-
 if __name__ == "__main__":
     main()

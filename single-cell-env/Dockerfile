@@ -32,18 +32,12 @@ RUN echo '{"theme":"JupyterLab Dark"}' > \
 
 RUN conda update -n base conda && \
     conda install -c bioconda -c conda-forge \
-        bedtools \
-        deeptools \
-        fastqc \
         fastp \
-        homer \
-        multiqc \
+        kallisto \
+        bustools \
         samtools \
         seqkit \
         pandas \
-        perl-xml-libxml \
-        perl-uri \
-        picard \ 
         numpy \
         pandas \
         scipy \
@@ -61,22 +55,12 @@ RUN conda update -n base conda && \
         scanpy \
         leidenalg \
         ipywidgets \
-        bioconductor-annotationforge \
-        bioconductor-sva \
-        bioconductor-edger \
-        bioconductor-deseq2 \
-        bioconductor-annotationdbi \
         bioconductor-clusterprofiler \
-        bioconductor-do.db \
-        bioconductor-kegg.db \
-        bioconductor-monocle \
+        r-monocle3 \
         r-seurat \
-        r-vcfr \
         r-wgcna \
         r-tidyverse \
         r-devtools \
-        pysam \
-        pybedtools \
         pypairs && \
     conda clean --all --yes
 
@@ -86,6 +70,7 @@ RUN pip install -U pip && \
                 skggm \
                 optuna \
                 velocyto \
+                kb-python \
                 MulticoreTSNE \
                 phate \
                 fa2 \
@@ -100,7 +85,6 @@ RUN pip install -U pip && \
 
 RUN mkdir -p /workspace /local_volume 
 WORKDIR /workspace
-ADD ./sra_downloader.py /workspace
 
 #  言語設定
 RUN echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen && \
@@ -112,7 +96,5 @@ ENV LANGUAGE=en_US.UTF-8
 ENV LC_ALL=en_US.UTF-8
 
 ENV PATH="${PATH}:/usr/local/ncbi/sra-tools/bin"
-
-ADD ./ /workspace
 
 CMD ["fish"]

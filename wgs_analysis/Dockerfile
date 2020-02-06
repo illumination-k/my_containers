@@ -11,9 +11,7 @@ RUN conda install \
         samtools \
         bwa \
         Mummer \
-        kwip \
         bedtools \
-        VarScan \
         bcftools \
         snpeff \
         -c bioconda -c conda-forge && \
@@ -34,8 +32,8 @@ RUN wget -O /workspace/bin/gatk4.zip https://github.com/broadinstitute/gatk/rele
     rm -f /workspace/bin/gatk4.zip
 
 # download and install vcftools
-RUN git clone https://github.com/vcftools/vcftools.git
-WORKDIR /workspace/bin/vcftools 
+# RUN git clone https://github.com/vcftools/vcftools.git
+# WORKDIR /workspace/bin/vcftools 
 
 RUN ./autogen.sh && \
     ./configure make && \
@@ -44,8 +42,6 @@ RUN ./autogen.sh && \
 # PATH TO files for tools
 ENV PATH="${PATH}:/workspace/bin"
 ENV PATH="${PATH}:/workspace/bin/gatk-4.1.4.0"
-
-ADD ./exec_qc.py /workspace/bin
 
 WORKDIR /local_volume
 
