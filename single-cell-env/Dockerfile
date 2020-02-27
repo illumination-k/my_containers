@@ -10,8 +10,6 @@ RUN apt-get update --fix-missing && \
     apt-get -qq -y autoremove && \
     apt-get autoclean && \
     rm -rf /var/lib/apt/lists/* /var/log/dpkg.log 
-    
-RUN curl -L https://ftp-trace.ncbi.nlm.nih.gov/sra/sdk/2.10.0/setup-apt.sh | sh
 
 RUN jupyter labextension install @lckr/jupyterlab_variableinspector \
                                  @jupyterlab/git \
@@ -32,14 +30,6 @@ RUN echo '{"theme":"JupyterLab Dark"}' > \
 
 RUN conda update -n base conda && \
     conda install -c bioconda -c conda-forge \
-        bedtools \
-        deeptools \
-        fastqc \
-        fastp \
-        homer \
-        multiqc \
-        samtools \
-        seqkit \
         pandas \
         perl-xml-libxml \
         perl-uri \
@@ -61,29 +51,12 @@ RUN conda update -n base conda && \
         scanpy \
         leidenalg \
         ipywidgets \
-        bioconductor-annotationforge \
-        bioconductor-sva \
-        bioconductor-edger \
-        bioconductor-deseq2 \
-        bioconductor-annotationdbi \
-        bioconductor-clusterprofiler \
-        bioconductor-do.db \
-        bioconductor-kegg.db \
-        bioconductor-monocle \
-        r-seurat \
-        r-vcfr \
-        r-wgcna \
-        r-tidyverse \
-        r-devtools \
-        pysam \
-        pybedtools \
         pypairs && \
     conda clean --all --yes
 
 RUN pip install -U pip && \
     pip install cython h5py click cmake && \
-    pip install pyper \ 
-                skggm \
+    pip install skggm \
                 optuna \
                 velocyto \
                 MulticoreTSNE \
@@ -92,10 +65,7 @@ RUN pip install -U pip && \
                 magic-impute \
                 bbknn \
                 scvelo \
-                pyscenic \
-                bctpy \
-                rpy2 && \
-    pip install git+https://github.com/jacoblevine/phenograph.git && \
+                pyscenic && \
     pip install git+https://github.com/chriscainx/mnnpy.git
 
 RUN mkdir -p /workspace /local_volume 
@@ -110,8 +80,6 @@ ENV LANG=en_US.UTF-8
 ENV LC_CTYPE=en_US.UTF-8
 ENV LANGUAGE=en_US.UTF-8
 ENV LC_ALL=en_US.UTF-8
-
-ENV PATH="${PATH}:/usr/local/ncbi/sra-tools/bin"
 
 ADD ./ /workspace
 
