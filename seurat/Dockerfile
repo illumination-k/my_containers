@@ -19,6 +19,8 @@ RUN conda install -c bioconda -c conda-forge -c r \
         bioconductor-summarizedexperiment \
         bioconductor-batchelor
 
+RUN Rscript -e "install.packages('useful', repos='https://cran.ism.ac.jp/')"
+
 # remoteを入れないとdevtoolsがエラーになる (remote=>2.2.1以上が必要らしい)
 # furrrのためにudunits2が必要らしい
 # futureのbinaryが古いらしい

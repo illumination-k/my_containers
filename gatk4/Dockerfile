@@ -9,5 +9,8 @@ RUN conda install -c bioconda gatk4
 
 RUN rm -rf /var/lib/apt/lists/*
 
+RUN mkdir -p /local_volume
+WORKDIR /local_volume
+
 ENTRYPOINT [ "gatk" ]
 CMD [ "--version" ]
