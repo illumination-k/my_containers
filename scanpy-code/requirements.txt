@@ -1,0 +1,20 @@
+# imputer
+autoimpute
+
+# scanpy related
+cython
+h5py
+click
+cmake
+MulticoreTSNE 
+phate 
+fa2 
+magic-impute 
+bbknn
+
+# docs
+sphinx
+sphinx-rtd-theme
+
+# test
+pytest

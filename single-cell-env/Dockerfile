@@ -4,6 +4,7 @@ LABEL illumination-k <illumination.k.27@gmail.com>
 
 RUN conda update -n base conda && \
     conda install -c bioconda -c conda-forge \
+        lxml \
         bioservices \
         pandas \
         numpy \
@@ -28,16 +29,12 @@ RUN conda update -n base conda && \
 
 RUN pip install -U pip && \
     pip install cython h5py click cmake && \
-    pip install skggm \
-                optuna \
-                velocyto \
+    pip install optuna \
                 MulticoreTSNE \
                 phate \
                 fa2 \
                 magic-impute \
-                bbknn \
-                scvelo \
-                pyscenic && \
+                bbknn && \
     pip install git+https://github.com/chriscainx/mnnpy.git
 
 RUN mkdir -p /workspace /local_volume 

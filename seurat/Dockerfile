@@ -1,31 +1,23 @@
-FROM illumination27/my-notebook:latest
+FROM rocker/tidyverse
 
 LABEL illumination-k <illumination.k.27@gmail.com>
 
+RUN Rscript -e "install.packages('BiocManager')" && \ 
+        Rscript -e "BiocManager::install('multtest')" && \
+        Rscript -e "install.packages('Seurat')"
 
-RUN conda install -c bioconda -c conda-forge -c r \
-        udunits2 \
-        r-seurat \
-        r-here \
-        r-tidyverse \
-        r-ontologyindex \
-        r-devtools \
-        bioconductor-biocgenerics \
-        bioconductor-delayedarray \
-        bioconductor-delayedmatrixstats \
-        bioconductor-limma \
-        bioconductor-s4vectors \
-        bioconductor-singlecellexperiment \
-        bioconductor-summarizedexperiment \
-        bioconductor-batchelor
 
-RUN Rscript -e "install.packages('useful', repos='https://cran.ism.ac.jp/')"
+RUN apt-get -qq update && apt-get -qq -y install curl bzip2 \
+    && curl -sSL https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -o /tmp/miniconda.sh \
+    && bash /tmp/miniconda.sh -bfp /usr/local \
+    && rm -rf /tmp/miniconda.sh \
+    && conda install -y python=3 \
+    && conda update conda \
+    && apt-get -qq -y remove curl bzip2 \
+    && apt-get -qq -y autoremove \
+    && apt-get autoclean \
+    && rm -rf /var/lib/apt/lists/* /var/log/dpkg.log \
+    && conda clean --all --yes
 
-# remoteを入れないとdevtoolsがエラーになる (remote=>2.2.1以上が必要らしい)
-# furrrのためにudunits2が必要らしい
-# futureのbinaryが古いらしい
-# sfが必要らしい
-# sfのためにgdal >= 2.0.1が必要らしい -> anoconda cloudではversion3.0.4なのにエラーする。なぜ。
-# RUN Rscript -e "install.packages(c('useful', 'remotes', 'future', 'sf'), repos='https://cran.ism.ac.jp/')" && \
-#     Rscript -e "devtools::install_github('cole-trapnell-lab/leidenbase')" && \
-#     Rscript -e "devtools::install_github('cole-trapnell-lab/monocle3')"
+RUN Rscript -e 'library(Seurat)'
+ENV PATH /opt/conda/bin:$PATH
