@@ -3,7 +3,9 @@ FROM codercom/code-server
 USER root
 
 RUN apt-get -qq update && apt-get -qq -y install curl bzip2 build-essential git zsh make \
-    && curl -fsSL https://starship.rs/install.sh | bash \
+    && curl -fsSL https://starship.rs/install.sh -o /tmp/install.sh \
+    && bash /tmp/install.sh --yes \
+    && rm -rf /tmp/install.sh \
     && curl -sSL https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -o /tmp/miniconda.sh \
     && bash /tmp/miniconda.sh -bfp /usr/local \
     && rm -rf /tmp/miniconda.sh \
