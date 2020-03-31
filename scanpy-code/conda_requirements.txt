@@ -1,12 +1,15 @@
 lxml 
 bioservices 
-pandas 
+pandas
+dask 
 numpy 
 pandas 
 scipy 
 scikit-learn 
 umap-learn 
-statsmodels 
+statsmodels
+lightgbm
+xgboost
 matplotlib 
 seaborn 
 networkx 

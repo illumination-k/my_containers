@@ -12,6 +12,9 @@ fa2
 magic-impute 
 bbknn
 
+# parameter tuning
+optuna
+
 # docs
 sphinx
 sphinx-rtd-theme

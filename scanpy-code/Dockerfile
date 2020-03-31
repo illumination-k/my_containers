@@ -22,8 +22,7 @@ ENV PATH /opt/conda/bin:$PATH
 WORKDIR /workspace
 ADD . /workspace
 
-RUN conda update -n base conda && \
-    conda install -c bioconda -c conda-forge \
+RUN conda install -c bioconda -c conda-forge \
     --yes --file conda_requirements.txt && \
     conda clean --all --yes
 
@@ -38,6 +37,7 @@ RUN code-server --install-extension donjayamanne.python-extension-pack && \
     code-server --install-extension donjayamanne.githistory && \
     code-server --install-extension ibm.output-colorizer && \
     code-server --install-extension foxundermoon.shell-format && \
-    code-server --install-extension remisa.shellman
+    code-server --install-extension remisa.shellman && \
+    code-server --install-extension vscode-icons-team.vscode-icons
 
 RUN curl -L https://raw.githubusercontent.com/illumination-k/dotfiles/master/etc/install.sh | bash
