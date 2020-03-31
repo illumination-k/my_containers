@@ -20,3 +20,4 @@ pypairs
 ipykernel
 jupyterlab
 pyvcf
+biopython

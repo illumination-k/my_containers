@@ -21,3 +21,6 @@ sphinx-rtd-theme
 
 # test
 pytest
+
+# pymo3
+dlib

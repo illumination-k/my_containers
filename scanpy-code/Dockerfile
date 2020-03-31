@@ -2,7 +2,7 @@ FROM codercom/code-server
 
 USER root
 
-RUN apt-get -qq update && apt-get -qq -y install curl bzip2 build-essential git zsh make \
+RUN apt-get -qq update && apt-get -qq -y install curl bzip2 build-essential git zsh make peco xsel \
     && curl -fsSL https://starship.rs/install.sh -o /tmp/install.sh \
     && bash /tmp/install.sh --yes \
     && rm -rf /tmp/install.sh \
@@ -38,6 +38,8 @@ RUN code-server --install-extension donjayamanne.python-extension-pack && \
     code-server --install-extension ibm.output-colorizer && \
     code-server --install-extension foxundermoon.shell-format && \
     code-server --install-extension remisa.shellman && \
-    code-server --install-extension vscode-icons-team.vscode-icons
+    code-server --install-extension vscode-icons-team.vscode-icons && \
+    code-server --install-extension shan.code-settings-sync && \
+    code-server --install-extension vscodevim.vim
 
 RUN curl -L https://raw.githubusercontent.com/illumination-k/dotfiles/master/etc/install.sh | bash
