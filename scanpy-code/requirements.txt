@@ -11,6 +11,7 @@ phate
 fa2 
 magic-impute 
 bbknn
+loompy
 
 # parameter tuning
 optuna

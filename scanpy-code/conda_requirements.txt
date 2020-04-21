@@ -21,3 +21,5 @@ ipykernel
 jupyterlab
 pyvcf
 biopython
+plotly
+ipywidgets
