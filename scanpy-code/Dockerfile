@@ -1,4 +1,4 @@
-FROM codercom/code-server
+FROM codercom/code-server:3.1.1
 
 USER root
 
@@ -17,7 +17,26 @@ RUN apt-get -qq update && apt-get -qq -y install curl bzip2 build-essential git 
     && mkdir -p /workspace \
     && conda clean --all --yes
 
+
 ENV PATH /opt/conda/bin:$PATH
+
+USER coder
+
+RUN code-server --install-extension donjayamanne.python-extension-pack && \ 
+    code-server --install-extension wmontalvo.vsc-meta-snippet && \
+    code-server --install-extension coenraads.bracket-pair-colorizer-2 && \
+    code-server --install-extension donjayamanne.githistory && \
+    code-server --install-extension ibm.output-colorizer && \
+    code-server --install-extension foxundermoon.shell-format && \
+    code-server --install-extension remisa.shellman && \
+    code-server --install-extension vscode-icons-team.vscode-icons && \
+    code-server --install-extension shan.code-settings-sync && \
+    code-server --install-extension vscodevim.vim && \
+    code-server --install-extension oderwat.indent-rainbow
+
+RUN curl -L https://raw.githubusercontent.com/illumination-k/dotfiles/master/etc/install.sh | bash
+
+USER root
 
 WORKDIR /workspace
 ADD . /workspace
@@ -32,14 +51,3 @@ RUN pip install -U pip && \
 
 USER coder
 
-RUN code-server --install-extension donjayamanne.python-extension-pack && \
-    code-server --install-extension coenraads.bracket-pair-colorizer-2 && \
-    code-server --install-extension donjayamanne.githistory && \
-    code-server --install-extension ibm.output-colorizer && \
-    code-server --install-extension foxundermoon.shell-format && \
-    code-server --install-extension remisa.shellman && \
-    code-server --install-extension vscode-icons-team.vscode-icons && \
-    code-server --install-extension shan.code-settings-sync && \
-    code-server --install-extension vscodevim.vim
-
-RUN curl -L https://raw.githubusercontent.com/illumination-k/dotfiles/master/etc/install.sh | bash
