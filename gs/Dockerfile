@@ -11,7 +11,7 @@ RUN apt-get update --fix-missing && \
     apt-get -qq -y autoremove && \
     apt-get autoclean && \
     rm -rf /var/lib/apt/lists/* /var/log/dpkg.log && \
-    mkdir -p /workspace  
+    mkdir -p /workspace  /local_volume
 
 WORKDIR /workspace
 
@@ -23,8 +23,3 @@ RUN make
 
 ENV PATH=/workspace/gs/MMseqs2/build/bin:$PATH
 ENV PATH=/workspace/gs:$PATH
-
-RUN useradd koke1000
-
-USER koke1000
-WORKDIR /home/koke1000
