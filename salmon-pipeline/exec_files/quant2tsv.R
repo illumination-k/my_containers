@@ -2,6 +2,7 @@ library(tximport)
 library(jsonlite)
 library(reader)
 
+
 # set args
 args <- commandArgs(trailingOnly = T)
 default_args <- c(".", "scaledTPM")

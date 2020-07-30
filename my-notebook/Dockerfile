@@ -6,7 +6,7 @@ USER root
 
 RUN apt-get update --fix-missing && \
     apt-get install -y \ 
-        less fish git curl wget locales && \
+        less zsh git curl wget locales peco && \
     apt-get -qq -y autoremove && \
     apt-get autoclean && \
     rm -rf /var/lib/apt/lists/* /var/log/dpkg.log 
@@ -37,4 +37,4 @@ ENV LANGUAGE=en_US.UTF-8
 ENV LC_ALL=en_US.UTF-8
 
 
-CMD [ "fish" ]
+CMD [ "zsh" ]
