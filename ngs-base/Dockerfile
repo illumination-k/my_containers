@@ -4,18 +4,21 @@ LABEL illumination-k <illumination.k.27@gmail.com>
 
 RUN apt-get update --fix-missing && \
     apt-get install -y \ 
-        less fish git curl wget locales && \
+        less zsh peco git curl wget locales unzip && \
+    curl -fsSL https://starship.rs/install.sh -o /tmp/install.sh && \
+    bash /tmp/install.sh --yes  &&\
+    rm -rf /tmp/install.sh && \
     apt-get -qq -y autoremove && \
     apt-get autoclean && \
     rm -rf /var/lib/apt/lists/* /var/log/dpkg.log 
-    
+
+RUN curl -L https://raw.githubusercontent.com/illumination-k/dotfiles/master/etc/install.sh | bash    
 RUN curl -L https://ftp-trace.ncbi.nlm.nih.gov/sra/sdk/2.10.0/setup-apt.sh | sh
 
 RUN conda update -n base conda && \
     conda install -c bioconda -c conda-forge \
         bedtools \
         deeptools \
-        fastqc \
         fastp \
         homer \
         multiqc \
@@ -45,4 +48,6 @@ ENV PATH="${PATH}:/usr/local/ncbi/sra-tools/bin"
 
 ADD ./ /workspace
 
-CMD ["fish"]
+RUN zcompile ~/.zshrc
+
+CMD ["zsh"]
